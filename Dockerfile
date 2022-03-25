@@ -12,11 +12,11 @@ ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
 
-ADD Arch.sh /config/Arch.sh
+ADD Setup.sh /config/Setup.sh
 
 ADD syncrepo-template.sh /config/syncrepo-template.sh
 
-RUN /config/Arch.sh
+RUN /config/Setup.sh
 
 ENV PORT=80
 

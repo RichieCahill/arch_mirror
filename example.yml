@@ -1,8 +1,8 @@
 ---
 version: "2.1"
 services:
-  qbittorrent:
-    build: .
+  arch_mirror:
+    image: themadmaker2/arch_mirror:latest
     container_name: arch_mirror
     environment:
       - TZ=America/New_York
