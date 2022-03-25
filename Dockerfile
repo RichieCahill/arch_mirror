@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-mono:LTS
+FROM debian:11
 
 ARG DEBIAN_FRONTEND=noninteractive
 

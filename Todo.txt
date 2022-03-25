@@ -1,0 +1,2 @@
+Make source_url and lastupdate_url docker env variables
+

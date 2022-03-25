@@ -1,2 +1,2 @@
-# Arch_mirror_docker
-The is a docker image to quckly create and arch mirrot
+# arch_mirror
+The is a docker image to quickly create and arch mirror

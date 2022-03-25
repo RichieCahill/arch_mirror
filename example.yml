@@ -1,0 +1,13 @@
+---
+version: "2.1"
+services:
+  qbittorrent:
+    build: .
+    container_name: arch_mirror
+    environment:
+      - TZ=America/New_York
+    ports:
+      - 800:80
+    volumes:
+      - /ZFS/Torenting/Mirror/archlinux:/data
+    restart: unless-stopped
