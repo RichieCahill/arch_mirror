@@ -2,15 +2,21 @@ FROM ghcr.io/linuxserver/baseimage-mono:LTS
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
+WORKDIR /config
 
 RUN echo "Updating" && apt update && apt upgrade -y
 
-RUN apt install -y apache2 rsync w3m
+RUN echo "installing pacages" && apt install -y apache2 rsync w3m
+
+ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
 
-RUN mkdir /data
+ADD Arch.sh /config/Arch.sh
+
+ADD syncrepo-template.sh /config/syncrepo-template.sh
+
+RUN /config/Arch.sh
 
 ENV PORT=80
 
