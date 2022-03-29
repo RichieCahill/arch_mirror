@@ -7,7 +7,7 @@ services:
     environment:
       - TZ=America/New_York
     ports:
-      - 800:80
+      - 80:80
     volumes:
-      - /ZFS/Torenting/Mirror/archlinux:/data
+      - Storage:/data
     restart: unless-stopped
