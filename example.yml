@@ -1,5 +1,5 @@
 ---
-version: "2.1"
+version: "3.0"
 services:
   arch_mirror:
     image: themadmaker2/arch_mirror:latest
