@@ -6,11 +6,11 @@ WORKDIR /config
 
 RUN echo "Updating" && apt update && apt upgrade -y
 
-RUN echo "installing pacages" && apt install -y apache2 rsync w3m
+RUN echo "installing pacages" && apt install -y apache2 rsync w3m cron
+
+RUN echo "installing dev tools" && apt install -y vim
 
 ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
-
-CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
 
 ADD Setup.sh /config/Setup.sh
 
@@ -21,4 +21,8 @@ RUN /config/Setup.sh
 ENV PORT=80
 
 EXPOSE 80
+
+RUN echo "ServerName 127.0.0.1" >> /etc/apache2/apache2.conf
+ 
+CMD cron && /usr/sbin/apachectl -D FOREGROUND
 
