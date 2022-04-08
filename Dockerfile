@@ -8,8 +8,6 @@ RUN echo "Updating" && apt update && apt upgrade -y
 
 RUN echo "installing pacages" && apt install -y apache2 rsync w3m cron
 
-RUN echo "installing dev tools" && apt install -y vim
-
 ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 ADD Setup.sh /config/Setup.sh
