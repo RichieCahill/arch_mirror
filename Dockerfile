@@ -2,7 +2,7 @@ FROM debian:11
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-WORKDIR /config
+WORKDIR /scripts
 
 RUN echo "Updating" && apt update && apt upgrade -y
 
@@ -10,11 +10,13 @@ RUN echo "installing pacages" && apt install -y apache2 rsync w3m cron
 
 ADD 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
-ADD Setup.sh /config/Setup.sh
+ADD Setup.sh /scripts/Setup.sh
 
-ADD syncrepo-template.sh /config/syncrepo-template.sh
+ADD Rank.sh /scripts/Rank.sh
 
-RUN /config/Setup.sh
+ADD syncrepo-template.sh /scripts/	-template.sh
+
+RUN /scripts/Setup.sh
 
 ENV PORT=80
 
