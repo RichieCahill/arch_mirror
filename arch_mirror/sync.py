@@ -6,8 +6,8 @@ from os import environ
 from subprocess import run
 
 import polars as pl
-from apscheduler.schedulers.blocking import BlockingScheduler
-from apscheduler.triggers.interval import IntervalTrigger
+from apscheduler.schedulers.blocking import BlockingScheduler  # type: ignore[import]
+from apscheduler.triggers.interval import IntervalTrigger  # type: ignore[import]
 from requests import get
 
 
@@ -39,7 +39,7 @@ def rsync_command(source_url: str, mirror_dir: str) -> bool:
     stdout, returncode = run_command(rsync)
 
     if returncode != 0:
-        logging.warning(f"rsync failed with return code {returncode} and message {stdout}")
+        logging.warning(f"rsync failed with return code {returncode} and message {stdout!r}")
         return False
 
     return True
