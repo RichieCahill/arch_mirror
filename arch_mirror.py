@@ -2,6 +2,7 @@
 
 import logging
 from contextlib import suppress
+from os import environ
 from subprocess import run
 
 import polars as pl
@@ -21,20 +22,17 @@ def run_command(command: str) -> tuple[bytes, int]:
     return process.stdout, process.returncode
 
 
-def rsync_command(source_url: str, target_dir: str, bwlimit: int = 0) -> bool:
+def rsync_command(source_url: str, mirror_dir: str) -> bool:
     """Rsync command.
 
     Args:
         source_url (str): Source URL.
-        target_dir (str): Target dir.
+        mirror_dir (str): Target dir.
         bwlimit (int, optional): KBytes bandwidth limit. Defaults to 0.
     """
     rsync = "rsync -rlptH --safe-links --delete-delay --delay-updates --timeout=600 --contimeout=60 --no-motd"
 
-    if bwlimit > 0:
-        rsync += f" --bwlimit={bwlimit}"
-
-    rsync += f" {source_url} {target_dir}"
+    rsync += f" {source_url} {mirror_dir}"
 
     rsync += " -v"
 
@@ -89,12 +87,12 @@ def get_rsync_urls(data_frame: pl.DataFrame) -> list[str]:
     return rsync_urls
 
 
-def rsync(source_url: str, target_dir: str, attempts: int) -> bool:
+def rsync(source_url: str, mirror_dir: str, attempts: int) -> bool:
     """Run rsync attempts number of times.
 
     Args:
         source_url (str): Source URL.
-        target_dir (str): Target dir.
+        mirror_dir (str): Target dir.
         attempts (int): Number of attempts.
 
     Returns:
@@ -103,7 +101,7 @@ def rsync(source_url: str, target_dir: str, attempts: int) -> bool:
     logging.info(f"Syncing {source_url}")
 
     for attempt in range(1, attempts):
-        if rsync_command(source_url=source_url, target_dir=target_dir, bwlimit=0):
+        if rsync_command(source_url=source_url, mirror_dir=mirror_dir):
             return True
         logging.error(f"{source_url} Attempt {attempt} failed")
 
@@ -122,9 +120,9 @@ def sync_mirror() -> None:
     data_frame = get_mirror_list()
 
     rsync_urls = get_rsync_urls(data_frame)
-
+    mirror_dir = environ["MIRROR_DIR"]
     for rsync_url in rsync_urls:
-        if rsync(rsync_url, "/ZFS/Main/Mirror/archlinux/", 3):
+        if rsync(rsync_url, mirror_dir, 3):
             logging.info(f"Sync completed with {rsync_url}")
             return
 

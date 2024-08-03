@@ -23,7 +23,7 @@ ruff = "*"
 types-requests = "*"
 
 [tool.poetry.scripts]
-snapshot_manager = "arch_mirror:main"
+arch_mirror = "arch_mirror:main"
 
 [build-system]
 requires = ["poetry-core"]
