@@ -23,7 +23,7 @@ ruff = "*"
 types-requests = "*"
 
 [tool.poetry.scripts]
-arch_mirror = "arch_mirror:main"
+sync_mirror = "arch_mirror/sync:main"
 
 [build-system]
 requires = ["poetry-core"]

@@ -78,11 +78,6 @@
                 python312Packages.pudb
               ];
             });
-
-        apps.default = {
-          type = "app";
-          program = "${self.packages.arch_mirror}/bin/validate_jeeves";
-        };
       }
     )
     // {

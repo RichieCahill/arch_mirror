@@ -1,12 +1,19 @@
 {
   "cSpell.words": [
+    "alicehuston",
     "apscheduler",
     "archlinux",
     "bwlimit",
+    "cachix",
     "contimeout",
     "mypy",
+    "nixos",
+    "nixpkgs",
+    "numtide",
+    "pkgs",
     "pytest",
     "rlpt",
+    "substituters",
     "xdist"
   ]
 }
